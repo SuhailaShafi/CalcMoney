@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class Add_screen extends StatefulWidget {
@@ -10,7 +8,9 @@ class Add_screen extends StatefulWidget {
 }
 
 class _Add_screenState extends State<Add_screen> {
+  DateTime date = DateTime.now();
   String? selectedItem;
+  String? selectedItemi;
   FocusNode ex = FocusNode();
   FocusNode amount = FocusNode();
   final List<String> _item = [
@@ -19,6 +19,7 @@ class _Add_screenState extends State<Add_screen> {
     "transportation",
     "Education"
   ];
+  final List<String> _itemi = ['Income', 'Expense'];
   final TextEditingController explain_C = TextEditingController();
   final TextEditingController amount_C = TextEditingController();
   @override
@@ -116,34 +117,19 @@ class _Add_screenState extends State<Add_screen> {
               SizedBox(
                 height: 30,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: TextField(
-                    controller: explain_C,
-                    decoration: InputDecoration(
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                        labelText: 'explain',
-                        labelStyle: TextStyle(
-                          fontSize: 17,
-                          color: Colors.grey.shade500,
-                        ),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                                width: 2,
-                                color: Color.fromARGB(255, 209, 218, 223))),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                                width: 2,
-                                color: Color.fromARGB(255, 209, 218, 223))),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                                width: 2,
-                                color:
-                                    const Color.fromARGB(255, 46, 186, 172))))),
+              methodAmount(),
+              SizedBox(
+                height: 30,
+              ),
+              categoryselectMethod(),
+              SizedBox(
+                height: 30,
+              ),
+              dateMethod(),
+              Spacer(),
+              saveButtonMethod(),
+              SizedBox(
+                height: 20,
               )
             ],
           ),
@@ -152,10 +138,149 @@ class _Add_screenState extends State<Add_screen> {
     );
   }
 
+  GestureDetector saveButtonMethod() {
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15), color: Colors.teal),
+        width: 120,
+        height: 50,
+        child: Text(
+          'Save',
+          style: TextStyle(
+              fontFamily: 'f',
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+              fontSize: 17),
+        ),
+      ),
+    );
+  }
+
+  Widget dateMethod() {
+    return Container(
+      alignment: Alignment.bottomLeft,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(width: 2, color: Colors.white)),
+      width: 300,
+      child: TextButton(
+        onPressed: () async {
+          DateTime? newDate = await showDatePicker(
+              context: context,
+              initialDate: date,
+              firstDate: DateTime(2023),
+              lastDate: DateTime(2100));
+          if (newDate == Null) return;
+          setState(() {
+            date = newDate!;
+          });
+        },
+        child: Text('Date: ${date.year} / ${date.day}/${date.month}'),
+      ),
+    );
+  }
+
+  Padding categoryselectMethod() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 15),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              width: 2,
+              color: Color.fromARGB(255, 209, 218, 223),
+            )),
+        width: 300,
+        child: DropdownButton<String>(
+          value: selectedItemi,
+          items: _itemi
+              .map((e) => DropdownMenuItem(
+                    child: Container(
+                        width: 40,
+                        child: Row(children: [
+                          Image.asset('assets/images/${e}.jpeg'),
+                          SizedBox(width: 10),
+                          Text(
+                            e,
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ])),
+                    value: e,
+                  ))
+              .toList(),
+          selectedItemBuilder: (BuildContext context) => _item
+              .map((e) => Row(
+                    children: [
+                      Container(
+                        width: 42,
+                        child: Image.asset('assets/images/${e}.jpeg'),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(e),
+                    ],
+                  ))
+              .toList(),
+          onChanged: ((value) {
+            setState(() {
+              selectedItemi = value!;
+            });
+          }),
+          hint: Text(
+            'Name',
+            style: TextStyle(
+              color: Colors.grey,
+            ),
+          ),
+          dropdownColor: Colors.white,
+          underline: Container(),
+          isExpanded: true,
+        ),
+      ),
+    );
+  }
+
+  Padding methodAmount() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: TextField(
+          keyboardType: TextInputType.number,
+          focusNode: amount,
+          controller: amount_C,
+          decoration: InputDecoration(
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              labelText: 'amount',
+              labelStyle: TextStyle(
+                fontSize: 17,
+                color: Colors.grey.shade500,
+              ),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                      width: 2, color: Color.fromARGB(255, 209, 218, 223))),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                      width: 2, color: Color.fromARGB(255, 209, 218, 223))),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                      width: 2,
+                      color: const Color.fromARGB(255, 46, 186, 172))))),
+    );
+  }
+
   Padding explain() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: TextField(
+          focusNode: ex,
           controller: explain_C,
           decoration: InputDecoration(
               contentPadding:

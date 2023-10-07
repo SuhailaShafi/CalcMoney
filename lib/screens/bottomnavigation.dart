@@ -1,3 +1,4 @@
+import 'package:evesapp/screens/category.dart';
 import 'package:flutter/material.dart';
 import 'package:evesapp/screens/add.dart';
 import 'package:evesapp/screens/home.dart';
@@ -12,7 +13,7 @@ class Bottom extends StatefulWidget {
 
 class _BottomState extends State<Bottom> {
   int index_color = 0;
-  List Screens = [home(), Statistics(), home(), Statistics()];
+  List Screens = [home(), Statistics(), Category(), Statistics()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
