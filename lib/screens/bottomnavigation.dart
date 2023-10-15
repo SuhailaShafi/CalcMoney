@@ -1,8 +1,10 @@
-import 'package:evesapp/screens/category.dart';
+import 'package:evesapp/screens/category/addcategory.dart';
+import 'package:evesapp/screens/category/category.dart';
+import 'package:evesapp/screens/piechart/piechart.dart';
+import 'package:evesapp/screens/profile/profile.dart';
 import 'package:flutter/material.dart';
-import 'package:evesapp/screens/add.dart';
-import 'package:evesapp/screens/home.dart';
-import 'package:evesapp/screens/statistics.dart';
+import 'package:evesapp/screens/transactions/add.dart';
+import 'package:evesapp/screens/transactions/home.dart';
 
 class Bottom extends StatefulWidget {
   const Bottom({super.key});
@@ -13,16 +15,20 @@ class Bottom extends StatefulWidget {
 
 class _BottomState extends State<Bottom> {
   int index_color = 0;
-  List Screens = [home(), Statistics(), Category(), Statistics()];
+  List Screens = [home(), pichart(), Category(), Profile()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Screens[index_color],
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return Add_screen();
-          }));
+          if (index_color == 2) {
+            showCategoryAddPopup(context);
+          } else {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return Add_screen();
+            }));
+          }
         },
         child: Icon(Icons.add),
         backgroundColor: Colors.teal[700],

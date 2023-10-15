@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:evesapp/screens/listdata.dart';
+import 'package:evesapp/screens/transactions/listdata.dart';
 
 class home extends StatelessWidget {
   const home({super.key});
@@ -92,21 +92,14 @@ class home extends StatelessWidget {
               child: Stack(
                 children: [
                   Positioned(
-                      top: 35,
-                      left: 340,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(7),
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          color: Colors.teal[600],
-                          child: Icon(
-                            Icons.notification_add_outlined,
-                            size: 30,
-                            color: Colors.white,
-                          ),
-                        ),
-                      )),
+                    top: 35,
+                    left: 340,
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage('assets/images/person.jpeg'),
+                      radius: 20,
+                      backgroundColor: Colors.teal[400],
+                    ),
+                  ),
                   Padding(
                     padding: EdgeInsets.only(
                       top: 35,
@@ -115,14 +108,14 @@ class home extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          'Good Afternoon',
+                          'Helloo',
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
                               color: Colors.white),
                         ),
                         Text(
-                          'Suhaila Parvin',
+                          'Eva',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 20,
@@ -163,7 +156,7 @@ class home extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       'Total Balance',
@@ -172,10 +165,6 @@ class home extends StatelessWidget {
                           fontSize: 16,
                           color: Colors.white),
                     ),
-                    Icon(
-                      Icons.more_horiz,
-                      color: Colors.white,
-                    )
                   ],
                 ),
               ),
@@ -185,6 +174,7 @@ class home extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 15),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       '\$ 2,957',
@@ -271,7 +261,7 @@ class home extends StatelessWidget {
                             color: Colors.white),
                       ),
                       Text(
-                        '\$ ',
+                        '\$ 845',
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 16,

@@ -3,16 +3,26 @@ import 'package:hive/hive.dart';
 part 'add_date.g.dart';
 
 @HiveType(typeId: 1)
-class Add_data extends HiveObject {
+class AddData extends HiveObject {
   @HiveField(0)
-  String name;
+  String type;
   @HiveField(1)
-  String explain;
+  String category;
   @HiveField(2)
-  String amount;
+  String mode;
   @HiveField(3)
-  String IN;
+  String heading;
   @HiveField(4)
-  DateTime dateTime;
-  Add_data(this.IN, this.amount, this.explain, this.name, this.dateTime);
+  String amount;
+  @HiveField(5)
+  DateTime datetime;
+
+  AddData(
+    this.type,
+    this.category,
+    this.mode,
+    this.heading,
+    this.amount,
+    this.datetime,
+  );
 }

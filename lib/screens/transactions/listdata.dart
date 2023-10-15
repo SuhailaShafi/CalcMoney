@@ -1,4 +1,4 @@
-import 'package:evesapp/screens/1.dart';
+import 'package:evesapp/screens/transactions/1.dart';
 
 List<Money> geter() {
   Money upwork = Money();
