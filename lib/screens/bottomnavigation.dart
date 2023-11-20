@@ -1,10 +1,10 @@
-import 'package:evesapp/screens/category/addcategory.dart';
-import 'package:evesapp/screens/category/category.dart';
-import 'package:evesapp/screens/piechart/piechart.dart';
-import 'package:evesapp/screens/profile/profile.dart';
+import 'package:evesapp/screens/category/screen/addcategory.dart';
+import 'package:evesapp/screens/category/screen/category.dart';
+import 'package:evesapp/screens/piechart/screen/pie_chart.dart';
+import 'package:evesapp/screens/profile/screen/screen_view_profile/profileView.dart';
+import 'package:evesapp/screens/transactions/Pages/Home/screen/sampleHome.dart';
 import 'package:flutter/material.dart';
-import 'package:evesapp/screens/transactions/add.dart';
-import 'package:evesapp/screens/transactions/home.dart';
+import 'package:evesapp/screens/transactions/Pages/Add%20Transaction/add_transaction.dart';
 
 class Bottom extends StatefulWidget {
   const Bottom({super.key});
@@ -14,8 +14,17 @@ class Bottom extends StatefulWidget {
 }
 
 class _BottomState extends State<Bottom> {
+  // ignore: non_constant_identifier_names
   int index_color = 0;
-  List Screens = [home(), pichart(), Category(), Profile()];
+  // ignore: non_constant_identifier_names
+  List Screens = [
+    const HomeSample(),
+    const PienewChart(),
+    const Category(),
+    //BarGraph(),
+    const ProfileView()
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,19 +34,22 @@ class _BottomState extends State<Bottom> {
           if (index_color == 2) {
             showCategoryAddPopup(context);
           } else {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return Add_screen();
-            }));
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const AddScreen()));
           }
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         backgroundColor: Colors.teal[700],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
+        height: MediaQuery.of(context).size.height * 0.1,
+        shape: const CircularNotchedRectangle(),
         child: Padding(
-          padding: const EdgeInsets.only(top: 7.5, bottom: 7.5),
+          padding: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.01,
+            bottom: MediaQuery.of(context).size.height * 0.01,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -49,7 +61,7 @@ class _BottomState extends State<Bottom> {
                 },
                 child: Icon(
                   Icons.home,
-                  size: 30,
+                  size: MediaQuery.of(context).size.height * 0.05,
                   color: index_color == 0 ? Colors.teal[700] : Colors.grey,
                 ),
               ),
@@ -60,8 +72,8 @@ class _BottomState extends State<Bottom> {
                   });
                 },
                 child: Icon(
-                  Icons.bar_chart_outlined,
-                  size: 30,
+                  Icons.pie_chart,
+                  size: MediaQuery.of(context).size.height * 0.05,
                   color: index_color == 1 ? Colors.teal[700] : Colors.grey,
                 ),
               ),
@@ -73,7 +85,7 @@ class _BottomState extends State<Bottom> {
                 },
                 child: Icon(
                   Icons.account_balance_wallet_outlined,
-                  size: 30,
+                  size: MediaQuery.of(context).size.height * 0.05,
                   color: index_color == 2 ? Colors.teal[700] : Colors.grey,
                 ),
               ),
@@ -85,7 +97,7 @@ class _BottomState extends State<Bottom> {
                 },
                 child: Icon(
                   Icons.person_2_outlined,
-                  size: 30,
+                  size: MediaQuery.of(context).size.height * 0.05,
                   color: index_color == 3 ? Colors.teal[700] : Colors.grey,
                 ),
               ),
@@ -94,7 +106,5 @@ class _BottomState extends State<Bottom> {
         ),
       ),
     );
-    // TODO: implement build
-    throw UnimplementedError();
   }
 }

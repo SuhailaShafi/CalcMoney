@@ -1,8 +1,9 @@
-import 'package:evesapp/models/category_model.dart';
+import 'package:evesapp/models/categoryModel/category_model.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+// ignore: constant_identifier_names
 const CATEGORY_DB_NAME = 'category-database';
 
 abstract class CategoryDbFunctions {
@@ -32,7 +33,6 @@ class CategoryDb implements CategoryDbFunctions {
     final categoryDB = await Hive.openBox<CategoryModel>(CATEGORY_DB_NAME);
     if (!categoryDB.containsKey(value.id)) {
       await categoryDB.put(value.id, value);
-      print('inserting');
       refreshUI();
     }
   }
@@ -51,7 +51,6 @@ class CategoryDb implements CategoryDbFunctions {
     await Future.forEach(
       allCategories,
       (CategoryModel category) {
-        print('refreshing cat list');
         if (category.type == CategoryType.income) {
           incomeCategoryListListner.value.add(category);
         } else {
@@ -60,7 +59,9 @@ class CategoryDb implements CategoryDbFunctions {
       },
     );
 
+    // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
     incomeCategoryListListner.notifyListeners();
+    // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
     expenseCategoryListListner.notifyListeners();
   }
 
